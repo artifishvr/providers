@@ -4,6 +4,10 @@ import { NotFoundError } from '@/utils/errors';
 
 const providers = [
   {
+    id: 'nova',
+    rank: 720,
+  },
+  {
     id: 'astra',
     rank: 700,
   },
@@ -32,6 +36,10 @@ function embed(provider: { id: string; rank: number }) {
           ctx.progress(progress);
         }
       }, 100);
+
+      if (provider.id === 'nova') {
+        throw new NotFoundError('Failed to search');
+      }
 
       try {
         const search = await ctx.fetcher.full(
